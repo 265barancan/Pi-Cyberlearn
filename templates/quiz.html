@@ -1,0 +1,81 @@
+{% extends 'base.html' %}
+
+{% block title %}Modül {{ module_id }} Quiz - CyberLearn Pi{% endblock %}
+
+{% block content %}
+<div class="mb-4">
+    <a href="{{ url_for('index') }}" class="text-green-400 hover:text-green-300 flex items-center text-sm transition">
+        <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18">
+            </path>
+        </svg>
+        Eğitim Paneline Dön
+    </a>
+</div>
+
+<div class="max-w-3xl mx-auto">
+    <div class="bg-gray-800 rounded-lg shadow-xl border border-gray-700 overflow-hidden" id="quiz-container">
+        <div class="bg-gray-700 px-6 py-4 border-b border-gray-600 flex justify-between items-center">
+            <h1 class="text-xl font-bold text-white">Modül {{ module_id }} Değerlendirme Testi</h1>
+            <span class="text-sm text-gray-300" id="question-counter">Yükleniyor...</span>
+        </div>
+
+        <div class="p-8" id="quiz-content">
+            <!-- Yükleniyor Göstergesi -->
+            <div class="flex justify-center items-center h-32" id="loading-spinner">
+                <svg class="animate-spin h-8 w-8 text-green-500" xmlns="http://www.w3.org/2000/svg" fill="none"
+                    viewBox="0 0 24 24">
+                    <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                    <path class="opacity-75" fill="currentColor"
+                        d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z">
+                    </path>
+                </svg>
+            </div>
+
+            <!-- Soru Alanı (Burası JS ile Doldurulacak) -->
+            <div id="question-area" class="hidden">
+                <h2 class="text-xl text-white font-medium mb-6" id="question-text"></h2>
+
+                <div class="space-y-3" id="options-container">
+                    <!-- Şıklar Gelecek -->
+                </div>
+
+                <!-- Geri Bildirim ve Açıklama Alanı -->
+                <div id="feedback-area" class="hidden mt-6 p-4 rounded-md">
+                    <p id="feedback-message" class="font-bold mb-2"></p>
+                    <p id="feedback-explanation" class="text-sm"></p>
+                </div>
+            </div>
+
+            <!-- Sonuç Sornası Kapanış Ekranı -->
+            <div id="result-area" class="hidden text-center py-8">
+                <div class="inline-flex items-center justify-center w-16 h-16 rounded-full bg-green-900 shadow-xl mb-4">
+                    <svg class="w-8 h-8 text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                    </svg>
+                </div>
+                <h2 class="text-2xl font-bold text-white mb-2">Test Tamamlandı!</h2>
+                <p class="text-gray-300 mb-6">Puanınız: <span id="final-score"
+                        class="text-green-400 font-bold text-xl"></span></p>
+
+                <button onclick="window.location.href='{{ url_for('index') }}'"
+                    class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-6 rounded transition">
+                    Dashboard'a Dön
+                </button>
+            </div>
+        </div>
+
+        <div class="bg-gray-900 px-6 py-4 border-t border-gray-700 flex justify-end hidden" id="quiz-footer">
+            <button id="next-btn"
+                class="bg-green-600 hover:bg-green-700 text-white font-bold py-2 px-6 rounded transition shadow shadow-green-900 disabled:opacity-50 disabled:cursor-not-allowed">
+                Sonraki Soru
+            </button>
+        </div>
+    </div>
+</div>
+
+<script>
+    const MODULE_ID = {{ module_id }};
+</script>
+<script src="/static/js/quiz.js"></script>
+{% endblock %}

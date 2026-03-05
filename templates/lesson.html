@@ -1,0 +1,76 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ lesson.title }} - CyberLearn Pi{% endblock %}
+
+{% block content %}
+<div class="mb-4">
+    <a href="{{ url_for('index') }}" class="text-green-400 hover:text-green-300 flex items-center text-sm transition">
+        <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18">
+            </path>
+        </svg>
+        Eğitim Paneline Dön
+    </a>
+</div>
+
+<div class="grid grid-cols-1 lg:grid-cols-4 gap-8">
+    <!-- İçerik -->
+    <div class="lg:col-span-3">
+        <div class="bg-gray-800 rounded-lg shadow-xl border border-gray-700 overflow-hidden">
+            <div class="bg-gray-700 px-8 py-5 border-b border-gray-600 flex justify-between items-center">
+                <h1 class="text-2xl font-bold text-white">{{ lesson.title }}</h1>
+                {% if is_completed %}
+                <span class="bg-green-600 text-white text-xs px-2 py-1 rounded-full font-bold flex items-center">
+                    <svg class="w-4 h-4 mr-1" fill="currentColor" viewBox="0 0 20 20">
+                        <path fill-rule="evenodd"
+                            d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+                            clip-rule="evenodd"></path>
+                    </svg>
+                    Tamamlandı
+                </span>
+                {% endif %}
+            </div>
+
+            <div
+                class="p-8 prose prose-invert max-w-none text-gray-300 marker:text-gray-400 prose-headings:text-white prose-a:text-green-400 hover:prose-a:text-green-300 prose-code:text-yellow-300 prose-code:bg-gray-900 prose-pre:bg-gray-900 prose-pre:border prose-pre:border-gray-700">
+                {{ content|safe }}
+            </div>
+
+            <div class="bg-gray-900 px-8 py-4 border-t border-gray-700 flex justify-end">
+                {% if not is_completed %}
+                <form action="{{ url_for('lessons.complete_lesson', lesson_id=lesson.id) }}" method="POST">
+                    <button type="submit"
+                        class="bg-green-600 hover:bg-green-700 text-white font-bold py-2 px-6 rounded shadow transition duration-200">
+                        Dersi Tamamla
+                    </button>
+                </form>
+                {% else %}
+                <button disabled class="bg-gray-600 text-gray-400 font-bold py-2 px-6 rounded cursor-not-allowed">
+                    Tamamlandı
+                </button>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+
+    <!-- Gemini Asistan (Placeholder) -->
+    <div class="lg:col-span-1">
+        <div class="bg-gray-800 rounded-lg shadow-xl border border-gray-700 p-6 sticky top-6">
+            <h3 class="text-lg font-bold text-white mb-4 flex items-center">
+                <svg class="w-5 h-5 mr-2 text-blue-400" fill="currentColor" viewBox="0 0 20 20">
+                    <path
+                        d="M10 2a6 6 0 00-6 6v3.586l-.707.707A1 1 0 004 14h12a1 1 0 00.707-1.707L16 11.586V8a6 6 0 00-6-6zM10 18a3 3 0 01-3-3h6a3 3 0 01-3 3z">
+                    </path>
+                </svg>
+                AI Asistan
+            </h3>
+            <p class="text-sm text-gray-400 mb-4">Bu ders hakkında aklına takılanlar mı var? Gemini'ye sorabilirsin.</p>
+
+            <button
+                class="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded transition text-sm flex justify-center items-center h-10">
+                <span>Yakında Eklenecek</span>
+            </button>
+        </div>
+    </div>
+</div>
+{% endblock %}
