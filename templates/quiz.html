@@ -22,14 +22,23 @@
 
         <div class="p-8" id="quiz-content">
             <!-- Yükleniyor Göstergesi -->
-            <div class="flex justify-center items-center h-32" id="loading-spinner">
-                <svg class="animate-spin h-8 w-8 text-green-500" xmlns="http://www.w3.org/2000/svg" fill="none"
-                    viewBox="0 0 24 24">
-                    <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
-                    <path class="opacity-75" fill="currentColor"
-                        d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z">
-                    </path>
-                </svg>
+            <div class="flex flex-col justify-center items-center h-40 space-y-4" id="loading-spinner">
+                <div
+                    class="flex items-center justify-center p-4 bg-gray-900 rounded-full border border-gray-700 shadow-lg">
+                    <svg class="animate-spin h-10 w-10 text-blue-500" xmlns="http://www.w3.org/2000/svg" fill="none"
+                        viewBox="0 0 24 24">
+                        <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4">
+                        </circle>
+                        <path class="opacity-75" fill="currentColor"
+                            d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z">
+                        </path>
+                    </svg>
+                </div>
+                <div class="text-center">
+                    <p class="text-blue-400 font-bold mb-1">Yapay Zeka Soruları Hazırlıyor...</p>
+                    <p class="text-xs text-gray-400">Gemini AI ders içeriğini analiz edip size özel sorular çıkarırken
+                        lütfen bekleyin.</p>
+                </div>
             </div>
 
             <!-- Soru Alanı (Burası JS ile Doldurulacak) -->
@@ -75,7 +84,7 @@
 </div>
 
 <script>
-    const MODULE_ID = {{ module_id }};
+    const MODULE_ID = Number("{{ module_id }}");
 </script>
 <script src="/static/js/quiz.js"></script>
 {% endblock %}
