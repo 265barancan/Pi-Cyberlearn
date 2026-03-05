@@ -1,6 +1,6 @@
 <div align="center">
   <h1>🛡️ CyberLearn Pi</h1>
-  <p><strong>Raspberry Pi ve düşük donanımlı cihazlar için optimize edilmiş, hafif ve interaktif siber güvenlik eğitim platformu.</strong></p>
+  <p><strong>A lightweight, interactive cybersecurity education platform optimized for Raspberry Pi and low-resource hardware.</strong></p>
   
   [![Python version](https://img.shields.io/badge/python-3.9+-blue.svg)](https://www.python.org/downloads/)
   [![Flask](https://img.shields.io/badge/Flask-3.0.3-black)](https://flask.palletsprojects.com/)
@@ -10,74 +10,74 @@
 
 <br />
 
-## 📖 Proje Hakkında (Description)
+## 📖 About The Project
 
-**CyberLearn Pi**, ARM tabanlı düşük donanımlı sistemlerde (Örn: *Raspberry Pi 1 Type B - 512 MB RAM*) dahi akıcı ve sorunsuz çalışmasını sağlamak amacıyla en temel, hızlı teknolojiler kullanılarak oluşturulmuş projedir. Öğrencilere ağ güvenliği, şifreleme ve komut satırı temellerini güvenli bir sanal alanda öğretir. Vanilla JS, derlenmiş TailwindCSS ve hafif bir SQLite-Flask mimarisi kullanılarak ayağa kaldırılmıştır.
+**CyberLearn Pi** is a project built using the most fundamental and fast technologies to ensure smooth and fluid operation even on low-end, ARM-based systems (e.g., *Raspberry Pi 1 Type B - 512 MB RAM*). It safely teaches students network security, encryption, and command-line basics in a sandboxed environment. Built with Vanilla JS, compiled TailwindCSS, and a lightweight SQLite-Flask architecture, it runs without the bloat of modern SPA frameworks.
 
-## ✨ Temel Özellikler
+## ✨ Key Features
 
-- 📚 **Modüler Ders İçerikleri:** Markdown destekli çevrimdışı çalışabilen eğitim dökümanları.
-- 💻 **Bütünleşik Terminal Simülatörü:** Öğrencilerin Linux komutlarını, gerçek bir sunucuya zarar verme riski olmadan güvenle deneyimleyebildiği yerel JS simülatörü.
-- 🤔 **Etkileşimli Quiz Motoru:** Modül sonlarında öğrenmeyi pekiştiren, anlık geri bildirimli, sayfa yenilemeden (AJAX) çalışan soru bankası.
-- 🤖 **Cyber-Tutor (Siber Asistan):** Google Gemini 1.5 Pro tabanlı eğitim asistanı. (Donanım maliyetleri düşünülerek token optimizasyonu ile kurgulanmıştır).
-- ⚡ **Yüksek Performans:** Node.js, ağır SPA (Single Page Application) frameworkleri ve devasa veritabanları yerine Vanilla JS, SQLite ve Flask-Gunicorn yapısıyla (maks. 2 asenkron worker) optimize edilmiştir.
-- 🔒 **Güvenli Erişim:** Flask-Login ile kontrol edilen kullanıcı kimlik doğrulama paneli.
+- 📚 **Modular Lesson Content:** Offline-capable Markdown-based educational documents.
+- 💻 **Integrated Terminal Simulator:** A client-side JavaScript simulator where students can safely practice Linux commands without the risk of damaging a real server.
+- 🤔 **Interactive Quiz Engine:** An AJAX-powered question bank that provides instant feedback at the end of modules without reloading the page.
+- 🤖 **Cyber-Tutor (AI Assistant):** An educational assistant powered by Google Gemini 1.5 Pro AI (Optimized for tokens to keep hardware API costs low).
+- ⚡ **High Performance:** Optimized with Vanilla JS, SQLite, and Flask-Gunicorn (max 2 async workers), eliminating the need for Node.js or massive databases.
+- 🔒 **Secure Access:** A user authentication panel controlled by Flask-Login.
 
 ---
 
-## 🚀 Hızlı Başlangıç & Kurulum
+## 🚀 Quick Start & Installation
 
-Linux veya macOS dağıtımları üzerinde hızlıca kurmak için otomatik kurulum betiğini kullanabilirsiniz:
+You can use the automated setup script to quickly install it on Linux or macOS distributions:
 
 ```bash
-# Projeyi bilgisayarınıza/sunucunuza indirin
+# Clone the repository to your computer/server
 git clone [GITHUB-REPO-LINK]
 cd cyberlearn-pi
 
-# Kurulum scriptine yetki verin ve başlatın
+# Grant permissions and run the setup script
 chmod +x scripts/setup.sh
 ./scripts/setup.sh
 ```
 
-### 🛠️ Manuel Geliştirici Kurulumu
+### 🛠️ Manual Developer Setup
 
-Eğer kurulum betiğini kullanmak istemezseniz, aşağıdaki standart adımları takip edin:
+If you prefer not to use the automated script, follow these standard steps:
 
-**1. Sanal ortamı hazırlayın:**
+**1. Prepare the virtual environment:**
 ```bash
 python3 -m venv venv
 source venv/bin/activate
 pip install -r requirements.txt
 ```
 
-**2. Veritabanını başlatın ve ilk verileri girin:**
+**2. Initialize the database and seed initial data:**
 ```bash
 python3 scripts/seed_db.py
 ```
 
-**3. API Anahtarlarını belirleyin:**
-- Klasördeki `.env.example` dosyasının adını `.env` olarak değiştirin ve uygun alanları (Gemini API Secret vb.) doldurun.
+**3. Set API Keys:**
+- Rename the `.env.example` file in the directory to `.env` and fill in the appropriate fields (Gemini API Secret, etc.).
 
-**4. Canlı geliştirme sunucusunu çalıştırın:**
+**4. Start the live development server:**
 ```bash
 bash scripts/dev_server.sh
 ```
-Uygulama `http://localhost:5000` adresinden erişilebilir olacaktır.
+The application will be accessible at `http://localhost:5000`.
 
 ---
 
-## 🏗️ Proje Mimarisi & Dizin Yapısı
+## 🏗️ Project Architecture & Directory Structure
 
-- `app.py`: Ana Flask uygulama başlangıç dosyası.
-- `blueprints/`: Uygulamanın alan adlarına göre (Auth, Quiz, Lesson, vb.) ayrılmış Controller (rotalandırma) yapıları.
-- `models/`: Kullanıcı verilerini tutan SQLite3 (SQLAlchemy olmadan, hafif) veritabanı tabloları.
-- `content/lessons/`: Ders içeriklerinin depolandığı Markdown (.md) havuzu.
-- `static/js/`: Eğitim paneli, terminal simülatörü ve quiz etkileşimlerinden sorumlu Vanilla Javascript dosyaları.
+- `app.py`: The main Flask application entry point.
+- `blueprints/`: Controller structures divided by application domains (Auth, Quiz, Lesson, etc.).
+- `models/`: Lightweight SQLite3 database tables holding user data (without SQLAlchemy overhead).
+- `content/lessons/`: A repository of Markdown (.md) files where lesson content is stored.
+- `static/js/`: Vanilla Javascript files responsible for the education panel, terminal simulator, and quiz interactions.
 
-## 🤝 Katkıda Bulunma
+## 🤝 Contributing
 
-Geliştirmeye katkıda bulunmak isteyen herkes için pull request'ler her zaman açıktır. Ancak, projeye kütüphane eklerken cihazların RAM sınırlarını (maksimum 512 MB) hesaba kattığımızdan lütfen gereksiz npm / pip paketlerini projeye dahil etmekten kaçının.
+Pull requests are always welcome for anyone wishing to contribute to the development. However, since we account for hardware RAM limits (max 512 MB) when adding libraries to the project, please avoid including unnecessary npm / pip packages.
 
-## 📄 Lisans
+## 📄 License
 
-Bu proje **MIT** lisansı altında dağıtılmaktadır. Daha fazla bilgi için `LICENSE` dosyasına bakabilirsiniz.
+This project is distributed under the **MIT** license. See the `LICENSE` file for more information.
