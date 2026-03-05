@@ -19,3 +19,10 @@ class Progress:
             return True
         except db.IntegrityError:
             return False  # Already completed
+
+    @staticmethod
+    def reset_progress(user_id):
+        db = get_db()
+        db.execute('DELETE FROM progress WHERE user_id = ?', (user_id,))
+        db.commit()
+        return True

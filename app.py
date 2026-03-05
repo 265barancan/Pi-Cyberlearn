@@ -3,6 +3,8 @@ from flask_login import LoginManager, login_required, current_user
 from config import Config
 from models.database import init_db
 from models.user import User
+from models.lesson import Lesson
+from models.progress import Progress
 from blueprints.auth import auth_bp
 from blueprints.lessons import lessons_bp
 from blueprints.quiz import quiz_bp
@@ -37,7 +39,23 @@ def create_app(config_class=Config):
     @app.route('/')
     @login_required
     def index():
-        return render_template('index.html', user=current_user)
+        lessons = Lesson.get_all()
+        completed_lessons = Progress.get_completed_lessons(current_user.id)
+        
+        # Puan hesaplaması (1 ders = 100 xp)
+        xp = len(completed_lessons) * 100
+        
+        # Gelecekte modül bazlı gösterim yapılabilir, şimdilik tüm dersler listeleniyor
+        
+        return render_template(
+            'index.html', 
+            user=current_user,
+            lessons=lessons,
+            completed_count=len(completed_lessons),
+            total_lessons=len(lessons),
+            completed_list=completed_lessons,
+            xp=xp
+        )
 
     return app
 

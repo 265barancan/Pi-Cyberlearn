@@ -30,10 +30,14 @@ def view_lesson(lesson_id):
         flash('Ders içeriği bulunamadı.', 'error')
         md_content = "# Hata\n\nDers içeriği dosyası eksik."
         
-    # Python-Markdown eklentileriyle HTML'e çevir
+    # Okuma süresini hesapla (Ortalama dakikada 200 kelime)
+    word_count = len(md_content.split())
+    reading_time = max(1, word_count // 200)
+
+    # Python-Markdown eklentileriyle HTML'e çevir (TOC eklendi)
     html_content = markdown.markdown(
         md_content,
-        extensions=['fenced_code', 'tables']
+        extensions=['fenced_code', 'tables', 'toc']
     )
     
     completed_lessons = Progress.get_completed_lessons(current_user.id)
@@ -43,7 +47,8 @@ def view_lesson(lesson_id):
         'lesson.html', 
         lesson=lesson, 
         content=html_content,
-        is_completed=is_completed
+        is_completed=is_completed,
+        reading_time=reading_time
     )
 
 @lessons_bp.route('/<int:lesson_id>/complete', methods=['POST'])
@@ -61,4 +66,11 @@ def complete_lesson(lesson_id):
     if next_lesson:
         return redirect(url_for('lessons.view_lesson', lesson_id=next_lesson.id))
         
+    return redirect(url_for('index'))
+
+@lessons_bp.route('/reset_progress', methods=['POST'])
+@login_required
+def reset_progress():
+    Progress.reset_progress(current_user.id)
+    flash('Tüm ders ilerlemeleriniz ve quiz sonuçlarınız sıfırlandı.', 'success')
     return redirect(url_for('index'))

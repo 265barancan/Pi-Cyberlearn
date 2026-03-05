@@ -18,7 +18,16 @@
     <div class="lg:col-span-3">
         <div class="bg-gray-800 rounded-lg shadow-xl border border-gray-700 overflow-hidden">
             <div class="bg-gray-700 px-8 py-5 border-b border-gray-600 flex justify-between items-center">
-                <h1 class="text-2xl font-bold text-white">{{ lesson.title }}</h1>
+                <div>
+                    <h1 class="text-2xl font-bold text-white">{{ lesson.title }}</h1>
+                    <p class="text-xs text-gray-400 mt-1 flex items-center">
+                        <svg class="w-3 h-3 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                        </svg>
+                        Tahmini Okuma: {{ reading_time }} Dk
+                    </p>
+                </div>
                 {% if is_completed %}
                 <span class="bg-green-600 text-white text-xs px-2 py-1 rounded-full font-bold flex items-center">
                     <svg class="w-4 h-4 mr-1" fill="currentColor" viewBox="0 0 20 20">
